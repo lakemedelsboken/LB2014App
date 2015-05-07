@@ -102,7 +102,7 @@ function SearchResultsView() {
 		});
 		var tab2Label = Ti.UI.createLabel({
 		    text:'Läkemedel',
-		    color:'#333'
+		    color:'#999'
 		});
 		tab2.add(tab2Label);
 		selector.add(tab2);
@@ -116,7 +116,7 @@ function SearchResultsView() {
 
 			event.cancelBubble = true;
 			currTab.backgroundColor = '#000';
-			currTab.children[0].color = '#333';
+			currTab.children[0].color = '#999';
 			this.backgroundColor = '#333';
 			this.children[0].color = '#FFF';
 			//selector.index = 0;
@@ -147,7 +147,7 @@ function SearchResultsView() {
 
 			event.cancelBubble = true;
 			currTab.backgroundColor = '#000';
-			currTab.children[0].color = '#333';
+			currTab.children[0].color = '#999';
 			this.backgroundColor = '#333';
 			this.children[0].color = '#FFF';
 			//selector.index = 1;
