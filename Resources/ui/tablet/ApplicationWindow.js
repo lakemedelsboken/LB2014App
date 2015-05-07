@@ -36,6 +36,29 @@ function ApplicationWindow() {
 		globals.rightDrawerWidth = 400;
 	}
 
+/*
+	if (Ti.Platform.osname === "iphone") {
+		Ti.API.info('Ti.Platform.displayCaps.density: ' + Ti.Platform.displayCaps.density);
+		Ti.API.info('Ti.Platform.displayCaps.dpi: ' + Ti.Platform.displayCaps.dpi);
+		Ti.API.info('Ti.Platform.displayCaps.platformHeight: ' + Ti.Platform.displayCaps.platformHeight);
+		Ti.API.info('Ti.Platform.displayCaps.platformWidth: ' + Ti.Platform.displayCaps.platformWidth);		
+	}
+*/
+
+	if (Ti.Platform.osname === "iphone") {
+		if (Ti.Platform.displayCaps.density === "high" && Ti.Platform.displayCaps.platformWidth === 414) {
+			//iPhone 6 Plus
+			globals.leftDrawerWidth = 340;
+			globals.rightDrawerWidth = 340;
+			
+		} else if (Ti.Platform.displayCaps.density === "high" && Ti.Platform.displayCaps.platformWidth === 375) {
+			//iPhone 6
+			globals.leftDrawerWidth = 300;
+			globals.rightDrawerWidth = 300;
+			
+		}
+	}
+
 		
 	var masterContainer = Ti.UI.createWindow({
 		top: 0,
@@ -163,6 +186,7 @@ function ApplicationWindow() {
 			parallaxAmount: 0.2,
 			shadowWidth:"10dp", 
 		    leftDrawerWidth: globals.leftDrawerWidth,
+		    rightDrawerWidth: globals.rightDrawerWidth,
 			orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT, Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT],
 			animationMode: NappDrawerModule.ANIMATION_NONE,
 		    closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_MARGIN,
@@ -655,9 +679,12 @@ function ApplicationWindow() {
 			if (globals.isLeftWindowOpen()) {
 				//Ti.API.log("Left window");
 				if (globals.menu.windowStack.length > 1) {
+					event.cancelBubble = true;
 					globals.menu.closeWin();
 				} else {
+					//event.cancelBubble = false;
 					//globals.menu.fireEvent("clickedHamburger");
+					drawer.close();
 				}
 				
 			} else if (globals.isRightWindowOpen()) {
