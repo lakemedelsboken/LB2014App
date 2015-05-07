@@ -33,7 +33,7 @@ function ProductView(nplId) {
 		
 		loadingIndicator.show();
 		
-		var url = "http://www.lakemedelsboken.se/products/" + nplId + ".json";
+		var url = settings.serverAddress + "/products/" + nplId + ".json";
 		
 		globals.fetchJSON(url, function(err, data) {
 
@@ -98,7 +98,7 @@ function ProductView(nplId) {
 			var indentation = 15;
 			
 			for (var i=0; i < subMedicine.images.length; i++) {
-				var imageUrl = "http://www.lakemedelsboken.se/products/images/" + subMedicine.images[i].checksum + ".jpg";
+				var imageUrl = settings.serverAddress + "/products/images/" + subMedicine.images[i].checksum + ".jpg";
 				
 				allImages.push(imageUrl);
 				allDescriptions.push(subMedicine.images[i].description);
@@ -396,7 +396,7 @@ function ProductView(nplId) {
 		if (subMedicine.noinfo) {
 			dataSection = Ti.UI.createTableViewSection({headerTitle: "Det finns tyvärr ingen förskrivarinformation"});
 		} else {
-			dataSection = getSubMedicineData(subMedicine.sections);
+			dataSection = getSubMedicineData(subMedicine.sections, subMedicine.provider);
 			dataSection.addEventListener("click", showSubMedicineData);
 		}
 
@@ -453,9 +453,15 @@ function ProductView(nplId) {
 */
 	}
 	
-	function getSubMedicineData(data) {
+	function getSubMedicineData(data, provider) {
+
+		var sectionTitle = "Information från FASS";
+		
+		if (provider && provider !== "fass") {
+			sectionTitle = "Information från " + provider;
+		}
 	
-		var dataSection = Ti.UI.createTableViewSection({headerTitle: "Information från FASS"});
+		var dataSection = Ti.UI.createTableViewSection({headerTitle: sectionTitle});
 	
 		var allContent = [];
 		var sections = [];
