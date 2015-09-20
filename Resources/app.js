@@ -1,4 +1,16 @@
 var globals = {};
+var jsonCache = {};
+
+/*
+var Flurry = {
+	initialize: function(id) {
+		Ti.API.log("Init flurry with: " + id);
+	},
+	logEvent: function(name, options) {
+		Ti.API.log("logEvent: " + name + " : " + JSON.stringify(options, null, ""));
+	}
+};
+*/
 var Flurry = require("ti.flurry");
 var settings = require("settings");
 
@@ -66,11 +78,13 @@ var settings = require("settings");
 	globals.context.open();
 })();
 
-var jsonCache = {};
-
 function fetchJSON(url, callback) {
 
-	var xhr = Titanium.Network.createHTTPClient();
+	Ti.API.log("Fetching json from: " + url);
+	var xhr = Titanium.Network.createHTTPClient({
+		validatesSecureCertificate: false,
+		timeout: 10000
+	});
 	 
 	xhr.onload = function() {
 		var result = null;
@@ -100,4 +114,21 @@ function fetchJSON(url, callback) {
 	
 }
 
+function fetchUrl(url, callback) {
 
+	var client = Ti.Network.createHTTPClient({
+		validatesSecureCertificate: false,
+		onload: function(e) {
+		    callback(null, this.responseText);
+		},
+		onerror: function(err) {
+			callback(err);
+		},
+		timeout: 10000
+	});
+
+	client.open("GET", url);
+	 
+	client.send();
+	 	
+}

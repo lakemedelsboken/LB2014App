@@ -5,28 +5,16 @@ var tocModel = require("models/TocModel");
 function ApplicationWindow() {
 
 	var MenuView = require('ui/common/MenuView'),
-		ChapterView = require('ui/common/ChapterView'),
 		ATCListView = require('ui/common/ATCListView'),
 		BoxSearchView = require('ui/common/BoxSearchView'),
 		ProductView = require('ui/common/ProductView'),
 		ImagesView = require('ui/common/ImagesView'),
 		LocalWebView = require('ui/common/LocalWebView'),
+		RemoteWebView = require('ui/common/RemoteWebView'),
 		NappDrawerModule = require('dk.napp.drawer'),
 		CPNavigationWindow = require("controllers/CPNavigationWindow");
 
 	var menuView = new MenuView();
-
-	globals.chapters = {};
-	
-	var chaptersDir = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "db/chapters");
-	var chapterFiles = chaptersDir.getDirectoryListing();
-	
-	//Populate chapters
-	for (var i=0; i < chapterFiles.length; i++){ 
-		var fileName = chapterFiles[i].toString();
-		var chapterId = fileName.split("_")[0];
-		globals.chapters[chapterId] = fileName;
-	}
 
 	globals.leftDrawerWidth = 270;
 	globals.rightDrawerWidth = 270;
@@ -262,35 +250,23 @@ function ApplicationWindow() {
 	Ti.App.addEventListener('menuItemSelected', function(event) {
 
 		var id = event.id;
+		var url = event.url;
 
 		//Check if top window is a webview
 		if (globals.topContentView && globals.topContentView.getApiName() === "Ti.UI.WebView") {
-			if (id && id.indexOf("_") > -1) {
-				var chapterId = id.split("_")[0];
-				var chapterPath = Ti.Filesystem.resourcesDirectory + "chapters/" + globals.chapters[chapterId].replace(".json", ".html");
-		
-				//Set current id
-				globals.topContentView.currentId = id;
-		
-				var scroll = true;
-		
-				//Open the chapter and scroll to correct position
-//				Ti.API.log("current: " + globals.topContentView.getUrl());
-//				Ti.API.log("new: " + chapterPath);
-				
-				if (globals.topContentView.getUrl().indexOf(chapterPath) !== 0) {
+			if (url) {
+				//Ti.API.log("1");
 
-					var masterIndex = tocModel.getIndex();
+				if (globals.topContentView.getUrl().indexOf(url) !== 0) {
+
+					//TODO: Fix title
 					var title = "";
-					if (masterIndex[chapterId.toUpperCase()] !== undefined) {
-						title = masterIndex[chapterId.toUpperCase()].name;
-					}
-		
+
 					//Create a new view
 					var window = Ti.UI.createWindow({translucent: false, title: title, backgroundColor: "#fff"});
-					var view = new ChapterView();
+					var view = new RemoteWebView(url, id);
 
-					view.openChapter(id);
+					//view.openUrl(url, id);
 					globals.contentStack.push(view);
 					window.add(view);
 					globals.contentController.openFromHome(window);
@@ -304,25 +280,21 @@ function ApplicationWindow() {
 					globals.topContentView.currentId = id;
 					globals.topContentView.scrollToCurrentId();
 				}
-				
+								
 			}
 		} else {
 			//Create a new view and load
-			if (id && id.indexOf("_") > -1) {
-				var chapterId = id.split("_")[0];
-				//var chapterPath = Ti.Filesystem.resourcesDirectory + "chapters/" + globals.chapters[chapterId].replace(".json", ".html");
-
-				var masterIndex = tocModel.getIndex();
+			if (url) {
+				//Ti.API.log("2");
+				
+				//TODO: Fix title
 				var title = "";
-				if (masterIndex[chapterId.toUpperCase()] !== undefined) {
-					title = masterIndex[chapterId.toUpperCase()].name;
-				}
-	
+
 				var window = Ti.UI.createWindow({translucent: false, title: title, backgroundColor: "#fff"});
 
-				var view = new ChapterView();
+				var view = new RemoteWebView(url, id);
 				
-				view.openChapter(id);
+				//view.openUrl(url, id);
 				globals.contentStack.push(view);
 				window.add(view);
 				globals.contentController.openFromHome(window);
@@ -331,9 +303,9 @@ function ApplicationWindow() {
 				setTimeout(function() {
 					globals.topContentView = view;
 				}, 2);
-
+				
 			} else {
-				Ti.API.error("Id was not correct: " + id);
+				Ti.API.error("Id was not correct: " + id + ", url: " + url);
 			}
 			
 		}
@@ -522,7 +494,8 @@ function ApplicationWindow() {
 		
 		if (globals.osname === "android") {
 
-			var content = '<img src="chapters/' + src + '" style="max-width: 700px;"><p class="figureText">' + text + '</p>';
+			//var content = '<img src="chapters/' + src + '" style="max-width: 700px;"><p class="figureText">' + text + '</p>';
+			var content = '<img src="' + src + '" style="max-width: 700px;"><p class="figureText">' + text + '</p>';
 
 			var imageView = new LocalWebView(content, globals.rightDrawerWidth);
 			window.add(imageView);
@@ -531,9 +504,10 @@ function ApplicationWindow() {
 
 			var image = new ImagesView("#fff");
 			
+			//var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "chapters/" + src);
 			var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "chapters/" + src);
 			
-			image.addImage(imageFile.nativePath, text);
+			image.addImage(src, text);
 			window.add(image);
 			
 		}
@@ -576,18 +550,21 @@ function ApplicationWindow() {
 
 		var chapterId = event.chapterId;
 		var id = event.id;
+		var url = event.url;
 		
-		var masterIndex = tocModel.getIndex();
+		//var masterIndex = tocModel.getIndex();
 		var title = "";
-		if (masterIndex[chapterId.toUpperCase()] !== undefined) {
-			title = masterIndex[chapterId.toUpperCase()].name;
-		}
+		//if (chapterId !== null && masterIndex[chapterId.toUpperCase()] !== undefined) {
+		//	title = masterIndex[chapterId.toUpperCase()].name;
+		//}
 
 		//Create a new view
 		var window = Ti.UI.createWindow({translucent: false, backgroundColor: "#fff", title: title});
-		var view = new ChapterView();
 
-		view.openChapter(id, chapterId);
+		url = globals.serverAddress + "/api/v1/appify?apikey=" + globals.lbApiKey + "&url=" + encodeURIComponent(url);
+		var view = new RemoteWebView(url, id);
+
+		//view.openChapter(id, chapterId);
 		globals.contentStack.push(view);
 		window.add(view);
 		globals.contentController.openWin(window);

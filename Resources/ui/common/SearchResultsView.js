@@ -239,7 +239,8 @@ function SearchResultsView() {
 
 		} else {
 			Ti.App.fireEvent('menuItemSelected', {
-				id: event.row.id
+				id: event.row.id,
+				url: globals.serverAddress + "/api/v1/appify?apikey=" + globals.lbApiKey + "&url=" + encodeURIComponent(event.row.url)
 			});
 		}
 	});
