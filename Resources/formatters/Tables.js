@@ -172,6 +172,8 @@ var TableFormatter = {
 				fontWeight: "normal"
 			}
 		});
+		
+		row.dataTitle = data.title;
 
 		if (isHeaderItem) {
 			label.font.fontWeight = "bold";
@@ -180,6 +182,9 @@ var TableFormatter = {
 
 		row.id = data.id;
 		row.dataTitle = data.title;
+		if (data.url !== undefined) {
+			row.url = data.url; 
+		}
 
 		if (data.hasChild !== undefined) {
 			row.hasChild = data.hasChild;
@@ -291,7 +296,7 @@ var TableFormatter = {
 			for (var i=0; i < data.images.length; i++) {
 				var indentation = (35 * i) + "dp";
 
-				var imageUrl = "http://www.lakemedelsboken.se/" + data.images[i];
+				var imageUrl = globals.serverAddress + "/" + data.images[i];
 				var image = Ti.UI.createImageView({image: imageUrl, width: "30dp", left: indentation});
 				
 				//Ti.API.log("Adding image with url: " + imageUrl);

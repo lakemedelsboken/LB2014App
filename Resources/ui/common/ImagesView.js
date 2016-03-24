@@ -31,6 +31,8 @@ function ImagesView(backgroundColor) {
 
 		nrOfImages++;
 
+		Ti.API.log("Opening image with url: " + url);
+
 		var image = Ti.UI.createImageView({
 			image: url, 
 			width: Ti.UI.SIZE,

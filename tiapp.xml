@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.staffanliving.lb2014</id>
     <name>LB 2014</name>
-    <version>1.4.1</version>
+    <version>1.5.1</version>
     <publisher>staliv</publisher>
     <url>http://www.lakemedelsboken.se</url>
     <description>not specified</description>
@@ -11,7 +11,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>false</analytics>
-    <guid>9927b9fd-1ad1-46b1-88fd-bfa5aba30340</guid>
+    <guid>6a611300-56f1-4153-9222-fedbcb471366</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <min-ios-ver>6.0</min-ios-ver>
@@ -45,7 +45,7 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <manifest android:installLocation="preferExternal"
-            android:versionCode="7" android:versionName="1.0"/>
+            android:versionCode="9" android:versionName="1.0"/>
     </android>
     <modules>
         <module platform="iphone">dk.napp.drawer</module>
@@ -61,5 +61,6 @@
         <target device="mobileweb">false</target>
         <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>3.5.1.GA</sdk-version>
+    <sdk-version>5.1.2.GA</sdk-version>
+    <property name="appc-app-id" type="string">56b88372c9ddffb941dab8e7</property>
 </ti:app>

@@ -21,7 +21,7 @@ function LocalWebView (initialHtml, width){
 '		<title></title>',
 '		<meta name="viewport" content="width=' + width + ', initial-scale=1.0, user-scalable=yes, maximum-scale=3, minimum-scale=0.25">',
 '		<meta name="author" content="Läkemedelsverket">',
-'		<link rel="stylesheet" href="chapters/css/styles.css">', 
+'		<link rel="stylesheet" href="{server}/css/app/styles.min.css">', 
 '	</head>',
 '	<body>',
 '		<div class="container" id="content">',
@@ -34,15 +34,17 @@ function LocalWebView (initialHtml, width){
 '				</div>',
 '			</div>',
 '		</div>',
-'		<script src="chapters/js/scripts.min.js"></script>',
-'		<script src="chapters/js/lb-app.js"></script>',
+'		<script src="{server}/js/app/scripts.min.js"></script>',
 '	</body>',
 '</html>'];
 
 	self.addHtml = function(html) {
 		addedHtml.push(html);
 		
-		self.setHtml(header.join("\n") + addedHtml.join("") + footer.join("\n"));
+		var html = header.join("\n") + addedHtml.join("") + footer.join("\n");
+		html = html.replace(/\{server\}/g, globals.serverAddress);
+		
+		self.setHtml(html);
 				
 	};
 	
