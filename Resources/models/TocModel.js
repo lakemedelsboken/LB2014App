@@ -10,7 +10,7 @@ var TocModel = {
 		if (masterIndex !== null) {
 			return callback(null, masterIndex);
 		} else {
-			fetchJSON(globals.serverAddress + "/api/v1/appindex", function(err, index) {
+			globals.fetchJSON(globals.serverAddress + "/api/v1/appindex", function(err, index) {
 				if (err) {
 					//Ti.API.error(err);
 					//masterIndex = {"Err": {name: "Kunde inte hämta kapitelinformation, kontrollera din internetanslutning."}};
@@ -69,7 +69,7 @@ var TocModel = {
 						}
 						
 						if (chapterId !== null) {
-							fetchJSON(globals.serverAddress + chapterId.replace(".html", ".index"), function(err, chapterIndex) {
+							globals.fetchJSON(globals.serverAddress + chapterId.replace(".html", ".index"), function(err, chapterIndex) {
 								if (err) {
 									return callback(err, result);
 								} else {

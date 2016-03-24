@@ -50,7 +50,7 @@ var settings = require("settings");
 		
 		Flurry.reportOnClose = true;
 		Flurry.sessionReportsOnPauseEnabled = true;
-		Flurry.secureTransportEnabled = false;
+		//Flurry.secureTransportEnabled = false;
 	}
 	
 	
