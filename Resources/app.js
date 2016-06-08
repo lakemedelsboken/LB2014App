@@ -82,7 +82,7 @@ function fetchJSON(url, callback) {
 
 	Ti.API.log("Fetching json from: " + url);
 	var xhr = Titanium.Network.createHTTPClient({
-		validatesSecureCertificate: false,
+		validatesSecureCertificate: true,
 		timeout: 10000
 	});
 	 
@@ -117,7 +117,7 @@ function fetchJSON(url, callback) {
 function fetchUrl(url, callback) {
 
 	var client = Ti.Network.createHTTPClient({
-		validatesSecureCertificate: false,
+		validatesSecureCertificate: true,
 		onload: function(e) {
 		    callback(null, this.responseText);
 		},
