@@ -86,22 +86,26 @@ function ApplicationWindow() {
 	//Build informationView
 	var informationView = Ti.UI.createScrollView({backgroundColor: "#fff", layout: "vertical", contentHeight: "auto"});
 
-	var imageFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "images/cover.png");
-
-	var lbImage = Ti.UI.createImageView({image: imageFile.nativePath, top: "10dp", width: "80%"});
-
-	if (Ti.Platform.osname === "ipad") {
-		lbImage.width = 400;
-	}
-	informationView.add(lbImage);
-
 	var infoLabel = Ti.UI.createLabel({
 		color : '#000',
 		font : {fontSize:12, fontFamily: "Avenir Next"},
 		width: "80%",
 		textAlign : 'left',
+		backgroundPaddingTop: '30px'
 		
 	});
+	
+	var headerLabel = Ti.UI.createLabel({
+		color : '#000',
+		font : {fontSize:24, fontFamily: "Avenir Next"},
+		width: "80%",
+		textAlign : 'center',
+		
+	});
+	
+	headerLabel.text = "\n";
+	headerLabel.text += "Läkemedelsboken";
+	headerLabel.text += "\n";
 
 	infoLabel.text = "Detta är den 19:e utgåvan av Läkemedelsboken (LB). Med anledning av apoteksmarknadens omreglering har Läkemedelsverket från och med förra utgåvan tagit över ansvaret för utgivningen från Apoteket AB, som gett ut boken sedan den första utgåvan 1977. LB finns tillgänglig i elektroniskt format och som en traditionellt tryckt bok.";
 	infoLabel.text += "\n\nKapitelförfattarna svarar själva för innehållet även om en redaktionskommitté, fristående från Läkemedelsverkets myndighetsuppdrag, granskat innehållet och i dialog med författarna vinnlagt sig om att innehållet inte står i strid med officiella direktiv, riktlinjer eller vetenskap och beprövad erfarenhet. Ledamöterna i redaktionskommittén har en omfattande klinisk erfarenhet och är väl insatta i forsknings- och utvecklingsarbete inom sina respektive områden. De har vidare ett brett nätverk inom såväl Läkemedelsverket och SBU som Svenska Läkaresällskapet och Apotekarsocieteten.";
@@ -109,6 +113,7 @@ function ApplicationWindow() {
 	infoLabel.text += "\n\nLB:s övergripande målsättning är att ge producentoberoende information om läkemedelsbehandling vid vanliga sjukdomstillstånd. Boken innehåller också kapitel som tar upp mer övergripande aktuella aspekter på läkemedelsanvändning samt kapitel om regelverket inom läkemedelsområdet.";
 	infoLabel.text += "\n\nLB vänder sig framför allt till specialister i allmänmedicin, läkare under specialistutbildning eller allmäntjänstgöring samt medicine och farmacie studerande, men också till läkare som behöver råd vid medicinska problem utanför den egna specialiteten. LB används som ett uppslagsverk av alla kategorier av sjukvårdspersonal inklusive farmaceuter.";
 	
+	informationView.add(headerLabel);
 	informationView.add(infoLabel);
 	
 	detailContainer.add(informationView);
@@ -255,9 +260,11 @@ function ApplicationWindow() {
 		//Check if top window is a webview
 		if (globals.topContentView && globals.topContentView.getApiName() === "Ti.UI.WebView") {
 			if (url) {
-				//Ti.API.log("1");
-
-				if (globals.topContentView.getUrl().indexOf(url) !== 0) {
+				Ti.API.log(url);
+				Ti.API.log(globals.topContentView.getUrl());
+					
+				
+				if (!globals.topContentView.getUrl() || globals.topContentView.getUrl().indexOf(url) !== 0) {
 
 					//TODO: Fix title
 					var title = "";
