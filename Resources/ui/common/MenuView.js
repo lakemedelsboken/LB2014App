@@ -142,7 +142,7 @@ function MenuView() {
 
 			if (!searchResultsAreVisible) {
 				//Show search results
-				searchResults.setTop("44dp");
+				searchResults.setTop(globals.searchBarHeight);
 				searchResults.setLeft(0);
 				currentWindow.add(searchResults);
 				//searchResults.setWidth(currentWindow.size.width);
@@ -213,7 +213,7 @@ function MenuView() {
 			});
 
 			var table = Ti.UI.createTableView({
-				top: "44dp"
+				top: globals.searchBarHeight
 			});
 
 			var title = event.row.dataTitle;
@@ -421,7 +421,7 @@ function MenuView() {
 	};
 	
 	var table = Ti.UI.createTableView({
-		top: "44dp"
+		top: globals.searchBarHeight
 	});
 
 	table.addEventListener("dragstart", function(event) {

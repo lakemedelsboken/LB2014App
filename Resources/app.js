@@ -1,7 +1,6 @@
 var globals = {};
 var jsonCache = {};
 
-/*
 var Flurry = {
 	initialize: function(id) {
 		Ti.API.log("Init flurry with: " + id);
@@ -10,8 +9,8 @@ var Flurry = {
 		Ti.API.log("logEvent: " + name + " : " + JSON.stringify(options, null, ""));
 	}
 };
-*/
-var Flurry = require("ti.flurry");
+
+//var Flurry = require("ti.flurry");
 var settings = require("settings");
 
 (function() {
@@ -24,6 +23,14 @@ var settings = require("settings");
 	globals.serverAddress = settings.serverAddress;
 
 	globals.lbApiKey = settings.lbiOSApiKey;
+
+	globals.searchBarHeight = "44dp";
+	
+	if (globals.osname !== "android") {
+		if (parseInt(globals.version) > 10) {
+			globals.searchBarHeight = "55dp";
+		}
+	}
 	
 	var flurryId;
 

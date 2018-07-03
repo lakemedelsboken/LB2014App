@@ -10,7 +10,7 @@ function ProductView(nplId) {
 
 	var style;
 	if (Ti.Platform.name === 'iPhone OS'){
-		style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
+		style = Ti.UI.ActivityIndicatorStyle.DARK;
 	}
 	else {
 		style = Ti.UI.ActivityIndicatorStyle.BIG;
@@ -163,7 +163,8 @@ function ProductView(nplId) {
 			Ti.App.fireEvent("searchBoxes", {terms: subMedicine.name});
 		});
 
-		infoSection.add(searchRow);		
+		//TODO: Bug - when clicking an info box it does not show up in the UI
+		//infoSection.add(searchRow);		
 
 		//Narcotic
 		var narcotic = null;
@@ -401,7 +402,7 @@ function ProductView(nplId) {
 		}
 
 		if (globals.osname !== "android") {
-			subMedicineTable.style = Ti.UI.iPhone.TableViewStyle.GROUPED;
+			subMedicineTable.style = Ti.UI.iOS.TableViewStyle.GROUPED;
 		}
 		
 		subMedicineTable.data = [infoSection, dataSection];

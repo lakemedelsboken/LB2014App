@@ -16,8 +16,15 @@ function RemoteWebView (url, id, width){
 	self.currentId = id;
 	
 	self.scrollToCurrentId = function() {
+		
+		
 		if (self.currentId !== null && self.currentId !== undefined) {
-			self.evalJS('location.hash="#' + self.currentId + '"');
+			
+			//Ti.API.log("Scrolling to: " + self.currentId);
+			self.evalJS('location.hash="#' + self.currentId + '";');
+			self.evalJS('var h = document.getElementById("' + self.currentId + '"); if (h) { h.scrollIntoView() };');
+			//Ti.API.log(self.evalJS('window.location.hash'));
+			
 		}
 	};
 

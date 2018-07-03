@@ -177,7 +177,7 @@ function SearchResultsView() {
 	} else {
 		selector = Ti.UI.iOS.createTabbedBar({
 			labels:['Innehåll', 'Läkemedel'],
-	    	style:Titanium.UI.iPhone.SystemButtonStyle.PLAIN,
+	    	style:Titanium.UI.iOS.SystemButtonStyle.PLAIN,
 	    	height:25,
 	    	width: 250,
 	    	top: 5,

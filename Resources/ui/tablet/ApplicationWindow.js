@@ -233,6 +233,7 @@ function ApplicationWindow() {
 			isLeftOpen = (drawer.isLeftWindowOpen() && !drawer.isRightWindowOpen() && drawer.isAnyWindowOpen());
 		} else {
 			isLeftOpen = (drawer.isLeftWindowOpen() && drawer.isRightWindowOpen() && drawer.isAnyWindowOpen());
+			isLeftOpen = drawer.isLeftWindowOpen();
 		}
 		
 		return isLeftOpen;
@@ -246,6 +247,7 @@ function ApplicationWindow() {
 			isRightOpen = (drawer.isLeftWindowOpen() && drawer.isRightWindowOpen() && drawer.isAnyWindowOpen());
 		} else {
 			isRightOpen = (!drawer.isLeftWindowOpen() && !drawer.isRightWindowOpen() && drawer.isAnyWindowOpen());
+			isRightOpen = drawer.isRightWindowOpen();
 		}
 		
 		return isRightOpen;
@@ -292,7 +294,10 @@ function ApplicationWindow() {
 		} else {
 			//Create a new view and load
 			if (url) {
-				//Ti.API.log("2");
+				Ti.API.log("2");
+				Ti.API.log(url);
+				//Ti.API.log(globals.topContentView.getUrl());
+
 				
 				//TODO: Fix title
 				var title = "";

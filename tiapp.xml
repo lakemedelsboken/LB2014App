@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.staffanliving.lb2014</id>
     <name>Läkemedelsboken</name>
-    <version>1.5.2.2</version>
+    <version>1.6</version>
     <publisher>staliv</publisher>
     <url>https://lakemedelsboken.se</url>
     <description>not specified</description>
@@ -11,13 +11,13 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>false</analytics>
-    <guid>6a611300-56f1-4153-9222-fedbcb471366</guid>
+    <guid>e3ee9a3c-ad8c-4449-9222-305f9fed0cbb</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <ios>
         <min-ios-ver>8.0</min-ios-ver>
         <plist>
             <dict>
-            	<key>CFBundleURLTypes</key>
+                <key>CFBundleURLTypes</key>
                 <array>
                     <dict>
                         <key>CFBundleURLName</key>
@@ -27,18 +27,8 @@
                         <array>
                             <!-- your custom scheme -->
                             <string>lakemedelsboken</string>
-
                         </array>
                     </dict>
-                </array>
-                <key>UISupportedInterfaceOrientations~iphone</key>
-                <array>
-                    <string>UIInterfaceOrientationPortrait</string>
-                </array>
-                <key>UISupportedInterfaceOrientations~ipad</key>
-                <array>
-                    <string>UIInterfaceOrientationPortrait</string>
-                    <string>UIInterfaceOrientationPortraitUpsideDown</string>
                 </array>
                 <key>UIRequiresPersistentWiFi</key>
                 <false/>
@@ -59,13 +49,13 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <manifest android:installLocation="preferExternal"
-            android:versionCode="10" android:versionName="1.0"/>
+            android:versionCode="10" android:versionName="1.0">
+            <application android:label="LB"/>
+        </manifest>
     </android>
     <modules>
+        <module platform="android" version="2.0.2">dk.napp.drawer</module>
         <module platform="iphone">dk.napp.drawer</module>
-        <module platform="iphone">ti.flurry</module>
-        <module platform="android">dk.napp.drawer</module>
-        <module platform="android">ti.flurry</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
@@ -75,6 +65,6 @@
         <target device="mobileweb">false</target>
         <target device="tizen">false</target>
     </deployment-targets>
-    <sdk-version>5.5.0.GA</sdk-version>
-    <property name="appc-app-id" type="string">56b88372c9ddffb941dab8e7</property>
+    <sdk-version>7.2.0.GA</sdk-version>
+    <property name="appc-app-id" type="string">5a398294eef48840ef87caa3</property>
 </ti:app>
