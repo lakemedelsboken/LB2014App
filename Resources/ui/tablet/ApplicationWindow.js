@@ -84,7 +84,7 @@ function ApplicationWindow() {
 	});
 
 	//Build informationView
-	var informationView = Ti.UI.createScrollView({backgroundColor: "#fff", layout: "vertical", contentHeight: "auto"});
+	//var informationView = Ti.UI.createScrollView({backgroundColor: "#fff", layout: "vertical", contentHeight: "auto"});
 
 	var infoLabel = Ti.UI.createLabel({
 		color : '#000',
@@ -106,21 +106,30 @@ function ApplicationWindow() {
 	headerLabel.text = "\n";
 	headerLabel.text += "Läkemedelsboken";
 	headerLabel.text += "\n";
-
-	infoLabel.text = "Detta är den 19:e utgåvan av Läkemedelsboken (LB). Med anledning av apoteksmarknadens omreglering har Läkemedelsverket från och med förra utgåvan tagit över ansvaret för utgivningen från Apoteket AB, som gett ut boken sedan den första utgåvan 1977. LB finns tillgänglig i elektroniskt format och som en traditionellt tryckt bok.";
-	infoLabel.text += "\n\nKapitelförfattarna svarar själva för innehållet även om en redaktionskommitté, fristående från Läkemedelsverkets myndighetsuppdrag, granskat innehållet och i dialog med författarna vinnlagt sig om att innehållet inte står i strid med officiella direktiv, riktlinjer eller vetenskap och beprövad erfarenhet. Ledamöterna i redaktionskommittén har en omfattande klinisk erfarenhet och är väl insatta i forsknings- och utvecklingsarbete inom sina respektive områden. De har vidare ett brett nätverk inom såväl Läkemedelsverket och SBU som Svenska Läkaresällskapet och Apotekarsocieteten.";
-	infoLabel.text += "\n\nRedaktionskommitténs ledamöter och samtliga författare har fått redovisa eventuella jävsförhållanden och bindningar till läkemedelsindustrin och dessa har bedömts och godkänts enligt det regelverk som finns inom Läkemedelsverket. Jävsdeklarationerna finns tillgängliga hos Läkemedelsverket.";
-	infoLabel.text += "\n\nLB:s övergripande målsättning är att ge producentoberoende information om läkemedelsbehandling vid vanliga sjukdomstillstånd. Boken innehåller också kapitel som tar upp mer övergripande aktuella aspekter på läkemedelsanvändning samt kapitel om regelverket inom läkemedelsområdet.";
-	infoLabel.text += "\n\nLB vänder sig framför allt till specialister i allmänmedicin, läkare under specialistutbildning eller allmäntjänstgöring samt medicine och farmacie studerande, men också till läkare som behöver råd vid medicinska problem utanför den egna specialiteten. LB används som ett uppslagsverk av alla kategorier av sjukvårdspersonal inklusive farmaceuter.";
 	
-	informationView.add(headerLabel);
-	informationView.add(infoLabel);
+	var startId = "Forord";
+	var ForUrl= "forord/index.html";
+	var startUrl = globals.serverAddress +"/api/v1/appify?apikey=" + globals.lbApiKey + "&url=" + encodeURIComponent(ForUrl);
+	var informationView = new RemoteWebView(startUrl, startId);
 	
-	detailContainer.add(informationView);
+	/*infoLabel.html = "<a href=\"http://www.lakemedelsboken.se\">Läkemedelsbokens</a> övergripande målsättning är att ge producentoberoende information om läkemedelsbehandling vid vanliga sjukdomstillstånd. Läkemedelsboken tar också upp aktuella aspekter på läkemedelsanvändning samt information om regelverket inom läkemedelsområdet. Läkemedelsboken vänder sig framför allt till specialister i allmänmedicin, läkare under specialistutbildning eller allmäntjänstgöring samt medicine och farmacie studerande. Den används också mycket av läkare som söker lättillgänglig och väl sammanfattad information om medicinska frågor utanför den egna specialiteten, samt som ett uppslagsverk av alla kategorier av sjukvårdspersonal inklusive farmaceuter. Se även Faktaruta 1.";
+	infoLabel.html += "\n\nLäkemedelsboken är indelad i terapikapitel och specialkapitel. Terapikapitlen beskriver olika sjukdomstillstånd, deras förekomst, symtom, diagnostik och behandling. Läkemedel placeras in i ett helhetsperspektiv i vilket även icke-farmakologiska behandlingsalternativ ingår. Läkemedel benämns med substansnamn, men i undantagsfall och vid noga övervägande kan ibland produktnamn komma att användas.  Specialkapitlen redogör bland annat för kliniskt farmakologiska principer, biverkningsmönster, läkemedelsinteraktioner samt läkemedels miljöpåverkan. Dessutom tas mer övergripande aspekter på läkemedelsanvändning upp, till exempel hälsoekonomi och IT-stöd. I regelverkskapitlen beskrivs de lagar och förordningar som styr läkemedelsområdet.";
+	infoLabel.html += "\n\nKapitelförfattarna svarar själva för innehållet. En redaktionskommitté, fristående från Läkemedelsverkets myndighetsuppdrag, har granskat innehållet och i dialog med författarna vinnlagt sig om att det inte står i strid med officiella direktiv, riktlinjer eller vetenskap och beprövad erfarenhet. Ledamöterna i redaktionskommittén har en omfattande klinisk erfarenhet och är väl insatta i forsknings- och utvecklingsarbete inom sina respektive områden. De har vidare ett brett nätverk inom myndigheter, landsting och universitet liksom inom intresseorganisationer (Svenska Läkaresällskapet och Apotekarsocieteten).";
+	infoLabel.html += "\n\nRedaktionskommitténs ledamöter och samtliga författare har inför sina uppdrag redovisat eventuella jävsförhållanden enligt de jävsgrunder som förvaltningslagen (1986:223) tar upp. Detta görs på den jävsblankett som Läkemedelsverket och flera andra myndigheter använder och bedömningen följer fastlagda rutiner. Se Läkemedelsverkets webbplats för mer information: https://lakemedelsverket.se/jav. Jävsdeklarationerna är offentliga handlingar och finns tillgängliga hos Läkemedelsverket.";
+	infoLabel.html += "\n\nLäkemedelsboken har givits ut sedan 1977, först av Apoteket AB och sedan omregleringen av apoteksmarknaden 2009 av Läkemedelsverket. Som komplement till den tryckta boken har Läkemedelsboken sedan ett antal år tillbaka även publicerats på webben. I de senare utgåvorna har den tryckta boken i huvudsak bestått av terapikapitlen, medan specialkapitlen webbpublicerats. I utgåvan från 2014 (LB 2014) var den tryckta boken fortfarande huvudprodukten, men från och med 2016 publiceras Läkemedelsboken enbart på webben.";
+	infoLabel.html += "\n\nVi bedriver ett kontinuerligt arbete med att anpassa innehållet i Läkemedelsboken till den kliniska vardagen och sjukvårdens behov av att snabbt få fram information om lämplig behandling/lämpliga läkemedel vid ett aktuellt sjukdomstillstånd. Samtidigt har vi behållit indelning i kapitel så att man kan använda Läkemedelsboken som läromedel eller källa när man vill veta mer inom något terapiområde. Läkemedelsboken ska vara lika användarvänlig oavsett om man läser på dator, surfplatta eller mobiltelefon.";
+	infoLabel.html += "\n\nLäkemedelsbokens redaktion arbetar kontinuerligt för att hålla Läkemedelsboken uppdaterad med för läsarna relevant information från Läkemedelsverket och andra myndigheter samt med ny kunskap inom läkemedelsområdet.";
+	infoLabel.html += "\n\nSynpunkter på Läkemedelsboken tas tacksamt emot av redaktionen.";*/
+	
+	//informationView.add(infoLabel);
+	//informationView.add(headerLabel);
+	
+	
 	globals.contentStack = [];
 	globals.contentStack.push(informationView);
 	globals.topContentView = informationView;
-	
+	detailContainer.add(informationView);
+
 	var centerController = new CPNavigationWindow({window: detailContainer});
 	//centerController.open(detailContainer);
 
