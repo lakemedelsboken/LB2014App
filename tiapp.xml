@@ -51,7 +51,7 @@
         <manifest android:installLocation="preferExternal"
             android:versionCode="13" android:versionName="1.1">
             <application android:label="LB"/>
-            <!--<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26" />-->
+            <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26" />
         </manifest>
     </android>
     <modules>
